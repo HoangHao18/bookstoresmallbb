@@ -1,0 +1,51 @@
+[
+    {
+        "image": "/assets/images/pi-catusWater.jpg",
+        "name": "Catus Water",
+        "rated": "4",
+        "price": "380000",
+        "number": "10",
+        "id":""
+    },
+    {
+        "image": "/assets/images/pi-catusWater.jpg",
+        "name": "Catus Water",
+        "rated": "5",
+        "price": "480000",
+        "number": "10",
+        "id":""
+    },
+    {
+        "image": "/assets/images/pi-catusWater.jpg",
+        "name": "Catus Water",
+        "rated": "4",
+        "price": "380000",
+        "number": "10",
+        "id":""
+    },
+    {
+        "image": "/assets/images/pi-catusWater.jpg",
+        "name": "Catus Water",
+        "rated": "5",
+        "price": "480000",
+        "number": "10",
+        "id":""
+    },
+    {
+        "image": "/assets/images/pi-catusWater.jpg",
+        "name": "Catus Water",
+        "rated": "4",
+        "price": "380000",
+        "number": "10",
+        "id":""
+    },
+    {
+        "image": "/assets/images/pi-catusWater.jpg",
+        "name": "Catus Water",
+        "rated": "5",
+        "price": "480000",
+        "number": "10",
+        "id":""
+    }
+
+]
