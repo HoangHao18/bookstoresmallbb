@@ -6,12 +6,12 @@ import "./style.scss";
 export  default function About(){
     return(
         <div className="about-page-container">
-            <HeaderImage img= "/assets/images/HeaderImage.jpg" title="About"/>
+            <HeaderImage img= "/assets/images/book05.jpg" title="About"/>
             <BreakSpace h= "30px"/>
             <div className="container">
                 <div className="row-hh">
                     <div className="col-3 image">
-                        <img src = "/assets/images/decoPN03.png" alt=""></img>
+                        <img src = "/assets/images/book07.jpg" alt=""></img>
                     </div>
                     <div className="col-9 content">
                         <h3 className="title">Our Story</h3>

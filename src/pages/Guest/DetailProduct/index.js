@@ -52,26 +52,18 @@ export default function DetailProduct() {
 
     const product = useSelector((state) => state.products.productSingle);
     console.log("product now mmmmmmmmmmm: ", product)
+    const isLoading = useSelector((state) => state.products.isLoading);
 
-    //const [colorsObject, setColorsObject] = useState([]);
-    //console.log("colorsObject: ", colorsObject);
-    //const [colorUserChoosed, setColorUserChoosed] = useState({color: "", sizes: []});
-    //const [sizeUserChoosed, setSizeUserChoosed] = useState({name: "", number: 0})
     const [numberUserChoosed, setNumberUserChoosed] = useState(0);
 
     let { id } = useParams();
+    console.log("idddd: ",id)
     useEffect(() => {
-        dispatch(getSingleProductAsync(id))
-            // .then(res => {
-            //     // console.log("okkkkkkkkk: ", res.ok)
-            //     if (res.ok) {
-            //         // setColorsObject(JSON.parse(res.productCurrent.colors))
-            //         // setColorUserChoosed(JSON.parse(res.productCurrent.colors)[0])
-            //         // setSizeUserChoosed(JSON.parse(res.productCurrent.colors)[0].sizes[0])
-            //         //console.log("okkkkkkkkk: ",JSON.parse(res.productCurrent.colors)[0].sizes[0])
-            //     }
-            // })
-    }, []);
+        {
+            id && dispatch(getSingleProductAsync(id))
+        }
+        
+    }, [id]);
 
     const handleAddCart = (id) => {
         if(numberUserChoosed > 0){
@@ -85,88 +77,35 @@ export default function DetailProduct() {
     }
 
     return (
+        !isLoading ? <div className='load-d'>Loading...</div> :
         <div className="details-product-container">
             {
-                productEx ?
+                product ?
                    <div className="container">
                         <div className="row-hh">
                             <div className="col-6 details-product-left">
                                 {
-                                    productEx.images && productEx.images.length > 0 ?
-                                        <ProductDetailImageSlider listImage = {productEx.images}/> : ''
+                                    product.HINH1 && product.HINH2 ?
+                                        <ProductDetailImageSlider listImage = {[product.HINH1, product.HINH2]}/> : 
+                                        <ProductDetailImageSlider listImage = {[product.HINH1]}/>
                                 }
                         
                             </div>
 
                             <div className="col-6 details-product-right">
                                 <h3 className="title-dp">Thông tin sản phẩm</h3>
-                                <p className="name-product-dp">{productEx.name}</p>
-                                <p className="code-product-dp">code {productEx.id}</p>
-                                <p className="price-dp"><NumberFormat value={productEx.price} displayType={'text'} thousandSeparator={true} /> VND</p>
-                                <p className="capacity-product-dp">Dung tích: {productEx.capacity} ml</p>
-                               
-                                {/* <div className="color-dp">
-                                <p>Màu</p>
-                                {
-                                     colorsObject && colorsObject.map(function(color, index){
-                                        if(color.color === colorUserChoosed.color){
-                                            return(
-                                                <div className="color-item-dp choosed"
-                                                    style={{ backgroundColor: `${color.color}` }} 
-                                                    key={index}
-                                                    onClick={()=>{
-                                                        setColorUserChoosed(color);
-                                                    }}
-                                                ></div> 
-                                            )
-                                        } 
-                                        else{
-                                            return(
-                                                <div className="color-item-dp"
-                                                    style={{ backgroundColor: `${color.color}` }} 
-                                                    key={index}
-                                                    onClick={()=>{
-                                                        setColorUserChoosed(color);
-                                                    }}
-                                                 ></div> 
-                                            )
-                                        }
-                                    }) 
-                                }  
-                            
-                                </div>  */} 
-                                {/*  <div className="size-dp">
-                                    <p>Kích thước</p>
-                                    <div>
-                                {
-                                     colorsObject && colorUserChoosed && colorUserChoosed.sizes.map(function(size, index){
-                                        if(size.name === sizeUserChoosed.name){
-                                            return(
-                                                <div className="size-item-dp choose-size"  
-                                                    key={index}
-                                                    onClick={()=>{
-                                                        setSizeUserChoosed(size)
-                                                    }}
-                                                >{size.name}</div> 
-                                            )
-                                        } else{
-                                            return(
-                                                <div className="size-item-dp"  
-                                                    key={index}
-                                                    onClick={()=>{
-                                                        setSizeUserChoosed(size)
-                                                    }}
-                                                >{size.name}</div> 
-                                            )
-                                        }
-                                    })    
-                                }  
-                                </div>
-                                </div> */}
+                                <p className="name-product-dp">{product.TENSACH}</p>
+                                <p className="code-product-dp">code {product.MASACH}</p>
+                                <p className="price-dp"><NumberFormat value={product.GIATHAYDOI} displayType={'text'} thousandSeparator={true} /> VND</p>
+                                <p className="capacity-product-dp">Tác giả: {product.TEN}</p>
+                                {/* <p className="fragrance-item">Thể loại: {product.TENTHELOAI}</p> */}
                                 <div className="fragrances-dp">
-                                    <p>Nhóm Hương </p>
+                                    <p>Thể loại </p>
                                     <div className="list-f-dp">
-                                        {
+                                        <div className="fragrance-item">
+                                            {product.TENTHELOAI}
+                                        </div>
+                                        {/* {
                                             productEx.fragrances && productEx.fragrances.length > 0 ?
                                             productEx.fragrances.map((item, index) => 
                                                 <div className="fragrance-item">
@@ -174,12 +113,12 @@ export default function DetailProduct() {
                                                 </div>
                                             )
                                             : ''
-                                        }
+                                        } */}
                                     </div>
                                 </div>
 
                                 <div className="nsx-dp">
-                                    Nhà sản xuất :  {productEx.manufacture.name}
+                                    Nhà xuất bản :  {product.TENNXB}
                                     {/* <i class='bx bx-chevron-down icon-read-more'></i> */}
                                 </div>
                                 <p className="desc-dp">
@@ -190,29 +129,29 @@ export default function DetailProduct() {
                                     }
                                 </p>
                                 {
-                                    isOpenDesc && <div className="desc-more">{productEx.description}</div>
+                                    isOpenDesc && <div className="desc-more">{product.MOTA} <br/> <span className='total-page'>Tổng Trang :</span> {product.SOTRANG}</div>
                                 }
 
-                                <p className="k-product-dp">Tồn kho: <NumberFormat value={productEx.number} displayType={'text'} thousandSeparator={true} /></p>
+                                <p className="k-product-dp">Tồn kho: <NumberFormat value={product.SOLUONG} displayType={'text'} thousandSeparator={true} /></p>
 
                                 <div className="quantity-dp">
                                     <p>Số lượng</p>
                                     <div className="quantity-btn-dp">
                                         <span onClick={() => { setNumberUserChoosed(numberUserChoosed === 0 ? 0 : numberUserChoosed - 1) }}><i class='bx bx-minus icon-minus' ></i></span>
                                         <span className="quantity">{numberUserChoosed}</span>
-                                        <span onClick={() => { setNumberUserChoosed(numberUserChoosed == productEx.number ? numberUserChoosed : numberUserChoosed + 1) }}><i class='bx bx-plus icon-plus'></i></span>
+                                        <span onClick={() => { setNumberUserChoosed(numberUserChoosed == product.SOLUONG ? numberUserChoosed : numberUserChoosed + 1) }}><i class='bx bx-plus icon-plus'></i></span>
                                     </div>
                                 </div>
 
                                 <div className="btn-dp">
-                                    <div onClick={() => { handleAddCart(productEx.id)}} className="button-themgh">Thêm Vào Giỏ Hàng</div>
+                                    <div onClick={() => { handleAddCart(productEx.MASACH)}} className="button-themgh">Thêm Vào Giỏ Hàng</div>
                                     {/* <Button nameButton="Thêm Vào Giỏ Hàng" onClick={(event)=>{handleAddCart()}}/>
                                     <Button nameButton="Mua Hàng"/> */}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    : <div>Loading...</div>
+                : <div>Loading...</div>
             }
         </div>
     )

@@ -8,7 +8,7 @@ export default function Blog(){
     return(
         <div className="blog-page-container">
             <HeaderBar/>
-            <HeaderImage img= "/assets/images/HeaderImage.jpg" title="Blog"/>
+            <HeaderImage img= "/assets/images/book05.jpg" title="Blog"/>
             <BreakSpace h="30px"/>
             <div className="container">
                 <div className="row-hh">

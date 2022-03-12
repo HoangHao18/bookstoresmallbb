@@ -63,7 +63,7 @@ export  default function Cart(){
         listProductCart && listProductCart.length > 0 ?
         <div className="cart-container">
             <HeaderBar/>
-            <HeaderImage img= "/assets/images/HeaderImage.jpg" title="Cart"/>
+            <HeaderImage img= "/assets/images/book05.jpg" title="Cart"/>
             <BreakSpace h= "30px"/>
             <div className="container">
                 <div className="row-hh title-col">

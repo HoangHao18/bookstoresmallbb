@@ -16,7 +16,7 @@ export default function ProductItem({
 }){
     let history = useHistory();
     const handleOpenDetailProduct = (idP) => {
-        //console.log("idP",idP)
+        console.log("idP",idP)
         history.push(`/product-detail/${idP}`)
     }
 
@@ -43,7 +43,8 @@ export default function ProductItem({
             </div>
         </div> :
         
-        <div className="product-item" onClick={() => handleOpenDetailProduct(id)}>
+        <div className="product-item" onClick={() => {console.log("id nf", id);
+            handleOpenDetailProduct(id)}}>
             <div className="pi-image">
                     
                 <img src={image} alt=""></img>

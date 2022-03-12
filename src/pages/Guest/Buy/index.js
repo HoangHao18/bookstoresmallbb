@@ -216,7 +216,7 @@ export default function Buy() {
     return (
         <div className="buy-container">
             <HeaderBar />
-            <HeaderImage img="/assets/images/HeaderImage.jpg" title="Buy" />
+            <HeaderImage img="/assets/images/book05.jpg" title="Buy" />
             <BreakSpace h="30px" />
             <div className="row-hh wrap">
                 <div className="container-left col-7">

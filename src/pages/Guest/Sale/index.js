@@ -23,8 +23,8 @@ export  default function Sale(){
     },[]);
    
     const productList = useSelector((state) => state.products.productList);
-    //const isLoading = useSelector((state) => state.products.isLoading);
-    const isLoading = false;
+    const isLoading = useSelector((state) => state.products.isLoading);
+    //const isLoading = false;
     const categoryList = useSelector((state) => state.categories.categoryList);
     // const handleOpenDetailProduct = (idP) => {
     //     console.log("mmmmmmmmmmmmmmmmmmmmmmmmmm",idP)
@@ -58,7 +58,7 @@ export  default function Sale(){
     return(
         <div className="sale-page-container">
             <HeaderBar/>
-            <HeaderImage img= "/assets/images/HeaderImage.jpg" title="Sale"/>
+            <HeaderImage img= "/assets/images/book05.jpg" title="Sale"/>
             <BreakSpace h="30px"/>
             <div className="container">
                 <div className="row-hh">
@@ -68,10 +68,10 @@ export  default function Sale(){
                             <ul className="list-categories">
                                 <li onClick={()=>handleGetAllProduct()}>Tất cả</li>
                                 {
-                                    categoryListEx && categoryListEx.length > 0 ? (
-                                        categoryListEx.map((item, index) => 
-                                        //    <li key={index} onClick={()=>handleFilterProduct(item.id)}>{item.name}</li>
-                                        <li key={index}>{item}</li>
+                                    categoryList && categoryList.length > 0 ? (
+                                        categoryList.map((item, index) => 
+                                        <li key={index} onClick={()=>handleFilterProduct(item.MATHELOAI)}>{item.TENTHELOAI}</li>
+                                        // <li key={index}>{item.TENTHELOAI}</li>
                                         )
                                    ) : ''  
                                 }
@@ -88,18 +88,19 @@ export  default function Sale(){
                         {
                             isLoading ? <div>Loading...</div> :
                             (
-                                listProductEx && listProductEx.length > 0 ? (
+                                productList && productList.length > 0 ? (
                                        
-                                    listProductEx.map((item, index) => 
+                                    productList.map((item, index) => 
                                                                            
-                                        item.number == 0 ? '':
+                                        item.number == 0 || item.TRANGTHAI == 0 ? '':
                                         <div className="col-4">
                                             <ProductItem 
                                                 //image = {process.env.REACT_APP_API_IMG + item.images[0].path}
-                                                image={item.image}
-                                                name = {item.name}
-                                                price = {item.price}
-                                                id = {item.id}
+                                                image={item.HINH1}
+                                                name = {item.TENSACH}
+                                                price = {item.GIATHAYDOI}
+                                                //price = "100000"
+                                                id = {item.MASACH}
                                                 // handleOnclickProduct = {(idP) => handleOpenDetailProduct(idP)}
                                                 />
                                         </div>                                        

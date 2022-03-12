@@ -1,10 +1,14 @@
 
+.load-d{
+    margin-top: 80px;
+}
 .details-product-container{
     // margin-top: 100px;
     // margin-bottom: 50px;
     margin: 100px 100px;
     text-align: left;
     color: #555;
+    
     .details-product-left{
         padding-left: 200px;
     }
@@ -142,6 +146,10 @@
         }
         .desc-more{
             padding: 0 20px 20px;
+            .total-page{
+                font-style: italic;
+                //text-decoration: underline;
+            }
         }
       
     }

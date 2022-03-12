@@ -8,7 +8,7 @@ export  default function Contact(){
     return(
         <div className="contact-page-container">
             <HeaderBar/>
-            <HeaderImage img= "/assets/images/HeaderImage.jpg" title="Contact"/>
+            <HeaderImage img= "/assets/images/book05.jpg" title="Contact"/>
             <BreakSpace h="30px"/>
             <div className="container">
                 <div className="row-hh">

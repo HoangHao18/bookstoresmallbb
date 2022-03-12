@@ -27,7 +27,7 @@ export default function HeaderSlider() {
       <Slider {...settings}>
         <div>
           <div className="img-header-slider">
-            <img src="/assets/images/headerSlide04.png" alt=""></img>
+            <img src="/assets/images/book03.jpg" alt=""></img>
           </div>
           <div className="content-header-slider">
             <p className="first-chs">New Arrivals Everyday</p>
@@ -38,7 +38,7 @@ export default function HeaderSlider() {
 
         <div>
           <div className="img-header-slider">
-            <img src="/assets/images/headerSlide05.png" alt=""></img>
+            <img src="/assets/images/book04.jpg" alt=""></img>
           </div>
           <div className="content-header-slider">
             <p className="first-chs">New Arrivals Everyday</p>
@@ -49,7 +49,7 @@ export default function HeaderSlider() {
 
         <div>
           <div className="img-header-slider">
-            <img src="/assets/images/headerSlide03.jpg" alt=""></img>
+            <img src="/assets/images/book05.jpg" alt=""></img>
           </div>
           <div className="content-header-slider">
             <p className="first-chs">New Arrivals Everyday</p>

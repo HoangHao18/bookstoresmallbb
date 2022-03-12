@@ -34,11 +34,11 @@ export default function ProductDetailImageSlider({listImage}){
         <div className="product-type-slider-container">
              <Slider {...settings}  
                 customPaging={(i) => {
-                        // return <div><img src={process.env.REACT_APP_API_IMG + imageListRender[i].path}></img></div>;
                         return <div><img src={imageListRender[i]}></img></div>;
+                        //return <div><img src={imageListRender[i]}></img></div>;
                 }}
                 dotsClass="slick-dots custom-indicator">
-             {
+                {
                    
                         imageListRender && imageListRender.length > 0 ? (
                              
@@ -51,12 +51,6 @@ export default function ProductDetailImageSlider({listImage}){
                         ) : <div>Not Have Images</div>
                                               
                 }
-
-                {/* <div><PragranceTypeItem/></div>
-                <div><PragranceTypeItem/></div>
-                <div><PragranceTypeItem/></div>
-                <div><PragranceTypeItem/></div>
-                <div><PragranceTypeItem/></div> */}
              </Slider>
         </div>
     )
