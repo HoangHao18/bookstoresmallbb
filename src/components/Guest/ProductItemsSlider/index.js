@@ -37,6 +37,36 @@ export default function ProductItemsSlider({isLoading, productList = [...product
         setIsLoadingRender(isLoading)
     },[isLoading])
 
+    console.log("tooooo", productListRender)
+    if(productListRender && productListRender.length <= 4){
+        return(
+            <div className="product-item-slider container">
+                {
+                    isLoadingRender ? <div>Loading...</div> :
+                    (
+                        productListRender && productListRender.length > 0 ? (
+                             
+                            productListRender.map((item, index) => 
+                                <div key={index} className="w-1-p-4">
+                                    <ProductItem 
+                                        //image={process.env.REACT_APP_API_IMG + item.images[0].path}
+                                        image={item.hinh1}
+                                        name = {item.tensach}
+                                        rated= {item.rated}
+                                        price = {item.giathaydoi}
+                                        id = {item.masach}
+                                    />
+                                </div> 
+                            )
+                            
+                        ) : <div>Not Have Product</div>
+                    )                           
+                }
+            </div>
+            
+        )
+    }
+
     return (
         <div className="product-item-slider container">
           <Slider {...settings}>
@@ -49,11 +79,11 @@ export default function ProductItemsSlider({isLoading, productList = [...product
                                 <div key={index}>
                                     <ProductItem 
                                         //image={process.env.REACT_APP_API_IMG + item.images[0].path}
-                                        image={item.image}
-                                        name = {item.name}
+                                        image={item.hinh1}
+                                        name = {item.tensach}
                                         rated= {item.rated}
-                                        price = {item.price}
-                                        id = {item.id}
+                                        price = {item.giathaydoi}
+                                        id = {item.masach}
                                     />
                                 </div> 
                             )

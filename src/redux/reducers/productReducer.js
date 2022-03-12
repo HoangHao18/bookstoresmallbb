@@ -7,7 +7,9 @@ const initialState = {
     isLoading: true,
     errorMessage: null,
     productFilterByCategory: null,
-    productListB:null
+    productListB:null,
+    productListFeature: null,
+    productListNew: null
     //images: null
 }
 
@@ -19,6 +21,18 @@ function productReducers(state = initialState, action) {
                 productList: action.payload,
                 isLoading: false,
             }
+        case actionTypes.PRODUCT_GET_LIST_FEATURE:
+                return{
+                    ...state,
+                    productListFeature: action.payload,
+                    isLoading: false,
+                }
+        case actionTypes.PRODUCT_GET_LIST_NEW:
+                return{
+                    ...state,
+                    productListNew: action.payload,
+                    isLoading: false,
+                }
         case actionTypes.PRODUCT_GET_LIST_B:
                 return{
                     ...state,

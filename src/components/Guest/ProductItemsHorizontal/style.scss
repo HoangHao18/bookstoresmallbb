@@ -7,5 +7,12 @@ $gap-row: 20px;
     gap: $gap-row;
     .pi-container{
         width: calc(50% - #{$gap-row/2});
+        .pi-image{
+            padding: 20px;
+            img{
+                object-fit:contain;
+            }
+            
+        }
     }
 }

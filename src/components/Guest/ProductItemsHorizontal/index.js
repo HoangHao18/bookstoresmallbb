@@ -5,19 +5,19 @@ import React, { useEffect, useState } from "react";
 
 import product_list_ex from '../../../assets/json/list-product-hot.json';
 
-export default function ProductItemsHorizontal({isLoading, productList = [...product_list_ex]}){
-    const [productListRender, setProductListRender] = useState(productList);
+export default function ProductItemsHorizontal({isLoading, listProduct}){
+    const [productListRender, setProductListRender] = useState(listProduct);
     const [isLoadingRender, setIsLoadingRender] =useState (isLoading)   
     useEffect(()=>{
-        setProductListRender(productList)
+        setProductListRender(listProduct)
         //console.log("productListRender: ", productListRender)
-    },[productList])
+    },[listProduct])
 
     useEffect(()=>{
         setIsLoadingRender(isLoading)
     },[isLoading])
 
-    
+    console.log("99999999999",isLoading, productListRender)
     return(
         <div className="product-items-horizontal">
               {
@@ -29,12 +29,12 @@ export default function ProductItemsHorizontal({isLoading, productList = [...pro
                                 <div key={index} className="pi-container">
                                     <ProductItem
                                         //image={process.env.REACT_APP_API_IMG + item.images[0].path}
-                                        image={item.image}
+                                        image={item.HINH1}
                                         isHorizontal = {true}
-                                        name = {item.name}
+                                        name = {item.TENSACH}
                                         rated= {item.rated}
-                                        price = {item.price}
-                                        id = {item.id}
+                                        price = {item.GIATHAYDOI}
+                                        id = {item.MASACH}
                                     />
                                 </div> 
                             )

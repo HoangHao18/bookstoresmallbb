@@ -19,6 +19,43 @@ export const getListProductsAsync = () => (dispatch) => {
         });
 }
 
+//get list product feature
+const getFeatureProduct = (featureProductList) => ({
+    type: actionStypes.PRODUCT_GET_LIST_FEATURE,
+    payload: featureProductList,
+
+})
+
+export const getFeatureProductAsync = () => (dispatch) => {
+        ProductService.getFeatureProduct()
+        .then(response => {
+            console.log("response: ", response);
+            dispatch(getFeatureProduct(response.data));
+        })
+        .catch((error) => {
+            console.log("error: ",error);
+        });
+}
+
+//get list product new
+const getNewProduct = (featureProductList) => ({
+    type: actionStypes.PRODUCT_GET_LIST_NEW,
+    payload: featureProductList,
+
+})
+
+export const getNewProductAsync = () => (dispatch) => {
+        ProductService.getNewProduct()
+        .then(response => {
+            console.log("response: ", response);
+            dispatch(getNewProduct(response.data));
+        })
+        .catch((error) => {
+            console.log("error: ",error);
+        });
+}
+
+
 //get list product B
 const getListProductsB = (productList) => ({
     type: actionStypes.PRODUCT_GET_LIST_B,
@@ -106,35 +143,6 @@ export const createProductAsync = (data) => {
         }
     }
 }
-
-
-// export const createProductAsync = ({ name, categoryId, manufactureId, idFragranceList, capacity, description, images }) => {
-//     return async function(dispatch) {     
-//         try{
-//             let response = (await ProductService.createProduct({ name, categoryId, manufactureId, idFragranceList, capacity, description, images }) );
-//             console.log("resposeeeeeeeeee: ",response);
-//             // eslint-disable-next-line
-//             if(response.status == 200){
-//                 dispatch(createProduct());
-//                 dispatch(getListProductsAsync());
-//                 toast.success("CREATE SUCCESS");
-//                 return {
-//                     ok: true
-//                 }
-//             }
-//             else{//call api not success not run in here
-//                 console.log("response.eror: ", response.error);
-                
-//             } 
-//         }catch(error){
-//             console.log("error.response: ", error.response);
-//             toast.error(error.response.data)
-//             return{
-//                 ok: false
-//             }
-//         }
-//     }
-// }
 
 //get single 
 const getSingleProduct = (productSingle) => ({

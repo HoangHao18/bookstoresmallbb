@@ -12,4 +12,6 @@ export const ProductService = {
 
     getProductByManufactureId: (id) => apiClient().get(`product/manufacture=${id}`),
     getProductByCategory: (id) => apiClient().get(`sanpham-theotheloai/${id}`),
+    getFeatureProduct: () => apiClient().get("spbanchay"),
+    getNewProduct: () => apiClient().get("sanphammoi")
 }
