@@ -4,22 +4,17 @@ import { useHistory } from 'react-router-dom'
 import './style.scss'
 import vari from '../../../assets/scss/vari.module.scss';
 import Select from 'react-select'
-//import Lightbox from 'react-image-lightbox';
-//import 'react-image-lightbox/style.css';
-
 import gender_items from '../../../assets/json/gender.json';
 
 import LogResBgPage from '../../../components/share/LogResBgPage';
-import SelectAddress from '../../../components/share/SelectAddress';
+//import SelectAddress from '../../../components/share/SelectAddress';
 import { registerAsync } from '../../../redux/actions/authAction';
 import { toast } from 'react-toastify';
 
 const customStylesSelect = {
     option: (provided, state) => ({
       ...provided,
-      //borderBottom: '1px dotted pink',
-      //color: state.isSelected ? 'red' : 'blue',
-      //backgroundColor: state.isSelected ? 'red' : 'white',
+     
       
       backgroundColor: state.isDisabled
         ? undefined
@@ -38,33 +33,32 @@ const customStylesSelect = {
     }
   }
 
+
+
 export default function Register(){
     const genderOptions = gender_items.map(({ id, name }) => ({ value: id, label: name }));
       
     const [formData, setFormData] = useState({
-        name: '',
-        //gender: gender_items && gender_items.length > 0 ? gender_items[0].name : '',
+        firstname: '',
+        lastname: '',
+        dayofbirth: '',
         phone: '',
         password: '',
         email: '',
-        //role: 1,
         gender: null,
-        addressNo: '',
-        cdw: '',
-        //image: ''
+        address: '',
     })
     const [formValidError, setFomValidError] = useState({
-        name: '',
-        gender: '',
+        firstname: '',
+        lastname: '',
+        dayofbirth: '',
         phone: '',
         password: '',
         email: '',
-        //role: '',
-        addressNo: '',
-        //image: ''
+        gender: '',
+        address: '',
     })
     const [isValidForm, setIsValidForm] = useState(false);
-    //const [previewImgURL, setPreviewImgURL] = useState('');
     
     function handleChangeFormData(key){ 
         if (key === 'gender'){
@@ -90,31 +84,17 @@ export default function Register(){
         setFomValidError(checkValidateInput(formData));
     },[formData]);
 
-   
-    //img
-    // const handleOnChangeImage = (event) => {
-    //     let dataFile = event.target.files;
-    //     let file = dataFile[0];
-    //     if(file){
-    //         //let objectUrl = URL.createObjectURL(file);
-    //         let objectUrl = URL.createObjectURL(file)
-    //         setPreviewImgURL(objectUrl);
-    //     }
-    //     setFormData({
-    //         ...formData,
-    //         image: file
-    //     })
-        
-    // }
-    //end img
-
     function checkValidateInput(formD){
         let err = {}
-        if(!formD.name){
-            err.name= "Tên là bắt buộc."
-        } else if(formD.name.length < 3){
-            err.name = "Tên tối thiểu 3 ký tự!"
-        }
+        if(!formD.firstname){
+            err.firstname= "Tên là bắt buộc."
+        } 
+        if(!formD.lastname){
+            err.lastname= "Họ là bắt buộc."
+        } 
+        if(!formD.dayofbirth){
+            err.dayofbirth= "Ngày sinh là bắt buộc."
+        } 
         if(!formD.phone){
             err.phone = "Số điện thoại là bắt buộc."
         } else if(formD.phone.length < 10){
@@ -122,9 +102,10 @@ export default function Register(){
         }
         if(!formD.password){
             err.password = "Mật khẩu là bắt buộc."
-        } else if(formD.password.length < 6){
-            err.password = "Mật khẩu tối thiểu 6 ký tự!"
-        }
+        } 
+        // else if(formD.password.length < 6){
+        //     err.password = "Mật khẩu tối thiểu 6 ký tự!"
+        // }
         if(!formD.email){
             err.email = "Email là bắt buộc."
         } else if(!/\S+@\S+\.\S+/.test(formD.email)){
@@ -133,12 +114,12 @@ export default function Register(){
         if (!formD.gender) {
             err.gender = "Mời chọn giới tính!"
         } 
-        if (!formD.addressNo) {
-            err.addressNo = "Số nhà/thôn/xóm là bắt buộc."
+        if (!formD.address) {
+            err.address = "Địa chỉ là bắt buộc."
         }
         console.log("mmm",err)
 
-         if(err.name || err.phone || err.password || err.email || err.gender || err.addressNo) {
+         if(err.firstname || err.lastname || err.dayofbirth || err.phone || err.password || err.email || err.gender || err.address) {
             setIsValidForm(false)
             //err.isValidForm = false;
             console.log("vao falsse")
@@ -153,8 +134,6 @@ export default function Register(){
     }
 
     let dispatch = useDispatch();
-    // const errResponse = useSelector((state) => state.users.errResponse);
-    // const status = useSelector((state) => state.users.status);
    
     function handleSaveUser(evt){
         evt.preventDefault();
@@ -162,44 +141,52 @@ export default function Register(){
         if(!isValidForm) return;
         
         console.log("check valid")
-        //dispatch(createUserAsync(formData));
 
-        // const data = new FormData();
-        // data.append("name", formData.name);
-        // data.append("email", formData.email);
-        // data.append("password", formData.password);
-        // data.append("gender", formData.gender);
-        // data.append("phone", formData.phone);
-        // data.append("role", formData.role);
-        // data.append("active", formData.active);
-        // data.append("address", formData.address);
-        // data.append("image", formData.image);
+        const data = new FormData();
+        data.append("HO", formData.lastname);
+        data.append("TEN", formData.firstname);
+        // data.append("GIOITINH", formData.gender);
+        data.append("GIOITINH", 1);
+        data.append("NGAYSINH", formData.dayofbirth);
+        data.append("SDT", formData.phone);   
+        data.append("EMAIL", formData.email);           
+        data.append("DIACHI", formData.address);
+        data.append("PASSWORD", formData.password);
+
+        console.log("2000 data", data)
         //axios.post("https://httpbin.org/anything", data).then(res => console.log(res)).catch(err => console.log(err));
-        
-        toast.error("Sorry can't connect to database!")
-        // dispatch(registerAsync({...formData, gender: formData.gender.value, address: formData.addressNo + ", "+ formData.cdw}))
-        // .then(res => {
-        //     console.log("ok: ",res.ok )
-        //     if (res.ok) {
-        //       // Thành công
-        //         //console.log("errResponse",errResponse)
-        //         //console.log("status",status)
-        //         setFormData({
-        //             name: '',
-        //                 gender: null,
-        //                 phone: '',
-        //                 password: '',
-        //                 email: '',          
-        //                 addressNo: '',
-        //                 image: ''
-        //         })
-        //         //setPreviewImgURL('');
-        //         history.push("/login")
-        //     } else {
-        //       // Thất bại
-        //       //console.log("status",status)
-        //     }
-        // });
+
+        const data2 = {
+            HO: formData.lastname,
+            TEN: formData.firstname,
+            GIOITINH: 1,
+            NGAYSINH: formData.dayofbirth,
+            SDT: formData.phone,
+            EMAIL: formData.email,
+            DIACHI: formData.address,
+            PASSWORD: formData.password
+        }
+        dispatch(registerAsync(data2))
+        .then(res => {
+            console.log("ok: ",res.ok )
+            if (res.ok) {
+              // Thành công
+                setFormData({
+                    firstname: '',
+                    lastname: '',
+                    dayofbirth: '',
+                    phone: '',
+                    password: '',
+                    email: '',
+                    gender: null,
+                    address: ''
+                })
+                history.push("/login")
+            } else {
+              // Thất bại
+              //console.log("status",status)
+            }
+        });
      }
 
      let history = useHistory();
@@ -207,14 +194,6 @@ export default function Register(){
         // history.push("/admin/users");
         history.push("/");
      }
-
-     const setAddessChoose = (data)=>{
-        console.log("cdw: ",data)
-        setFormData({
-            ...formData,
-            cdw:  data.ward + ", " + data.district + ", " + data.city
-        })
-    }
 
     return(
         <div className="register-container">
@@ -227,14 +206,39 @@ export default function Register(){
                             <div className="row-hh">
                                 <div className="col-8">
                                     <div className="form-group">
-                                        <label className="label">Tên hiển thị</label>
+                                        <label className="label">Họ</label>
                                         <input id="name" type="text" className="form-control" placeholder=" "  
-                                            value={formData.name} 
-                                            onChange={handleChangeFormData('name')} 
+                                            value={formData.lastname} 
+                                            onChange={handleChangeFormData('lastname')} 
                                         />
-                                    { formValidError.name &&  <label className="label-error">{formValidError.name}</label> }
+                                    { formValidError.lastname &&  <label className="label-error">{formValidError.lastname}</label> }
                                     </div>
                                 </div>
+
+                                <div className="col-4">
+                                    <div className="form-group">
+                                        <label className="label">Tên</label>
+                                        <input id="name" type="text" className="form-control" placeholder=" "  
+                                            value={formData.firstname} 
+                                            onChange={handleChangeFormData('firstname')} 
+                                        />
+                                    { formValidError.firstname &&  <label className="label-error">{formValidError.firstname}</label> }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="row-hh">
+                                <div className="col-8">
+                                    <div className="form-group">
+                                        <label className="label">Ngày sinh</label>
+                                        <input id="name" type="text" className="form-control" placeholder=" "  
+                                            value={formData.dayofbirth} 
+                                            onChange={handleChangeFormData('dayofbirth')} 
+                                        />
+                                    { formValidError.dayofbirth &&  <label className="label-error">{formValidError.dayofbirth}</label> }
+                                    </div>
+                                </div>
+
                                 <div className="col-4">
                                     <div className="form-group">
                                         <label className="label">Giới tính</label>
@@ -250,6 +254,7 @@ export default function Register(){
     
                                     </div>
                                 </div>
+                               
                             </div>
 
                             <div className="row-hh">
@@ -288,33 +293,17 @@ export default function Register(){
                                 </div>
                             </div>
 
-                            <div className="">
-                                <SelectAddress
-                                    eng={true}
-                                    getAddressChoose={setAddessChoose}
-                                />
-                            </div>
-
                             <div className="row-hh">
                                 <div className="col-12">
                                     <div className="form-group ">
-                                        <label className="label">Số nhà/ thôn</label>
+                                        <label className="label">Địa chỉ</label>
                                         <textarea type="text" className="form-control addressNo-user" placeholder=" "
-                                            value={formData.addressNo}
-                                            onChange={handleChangeFormData('addressNo')}
+                                            value={formData.address}
+                                            onChange={handleChangeFormData('address')}
                                         />
-                                        {formValidError.addressNo && <label className="label-error">{formValidError.addressNo}</label>}
+                                        {formValidError.address && <label className="label-error">{formValidError.address}</label>}
                                     </div>
                                 </div>
-                                {/* <div className="col-4">
-                                    <div className="form-group avatar-input">
-                                        <label className="label" name="image">Ảnh đại diện</label>
-                                        <div className="preview-img"><img src={previewImgURL} alt=""></img></div> 
-                                        <input id="image" type="file" className="form-control "  hidden onChange={ (event) => handleOnChangeImage(event)}/>
-                                        <label className="form-control choose-img" htmlFor="image"><i class='bx bx-image-add icon-choose-img'></i>Chọn ảnh</label>
-                                                                                                              
-                                    </div>
-                                </div>       */}
                             </div>
 
                             <div className="form-group last">

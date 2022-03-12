@@ -31,8 +31,8 @@ export default function HeaderBar(){
 
      //get tt
     useEffect(()=>{   
-        if(Cookies.get('X-Auth-Token')){
-            const decoded = jwt_decode(Cookies.get('X-Auth-Token'));
+        if(localStorage.getItem('user-current-email')){
+            //const decoded = jwt_decode(Cookies.get('X-Auth-Token'));
             dispatch(loginCheckLocalAsync())
             //dispatch(loginCheckLocalAsync(localStorage.getItem("userCurrentId")))
         }
@@ -56,6 +56,8 @@ export default function HeaderBar(){
         Cookies.remove('X-Auth-Token')
         //dispatch(saveCartAsync({id: userCurrent.id,cart: localStorage.getItem("cart")}))
         dispatch(logout());
+        localStorage.setItem("user-current-email",'')
+        localStorage.setItem("isLogin",false)
         //console.log("curren user nheeeeeeeeee: ",userCurrent,isLogin)
         window.location.href = "/"
         
@@ -102,7 +104,7 @@ export default function HeaderBar(){
                                 userCurrent.image && !(userCurrent.image===" ") ? <img alt="" src = {process.env.REACT_APP_API_IMG + userCurrent.image}></img> :
                                 <img alt="" src = "/assets/images/cat.png"></img>
                             }  
-                             <span className="iuc-name">{userCurrent.email}</span>
+                             <span className="iuc-name">{userCurrent.EMAIL}</span>
                         </div> 
                     : <Link to="/login"><span className="icon-login-2"><i class='bx bx-log-in-circle icon-2' ></i></span></Link>
                 } 

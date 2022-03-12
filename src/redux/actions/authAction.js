@@ -22,13 +22,18 @@ export const loginAsync = (data) => {
         try{
             let response = (await AuthService.login(data) );
             console.log("respon Login :",response)
-            console.log("response.data.data Login :",response.data)
+            console.log("response.data Login :",response.data)
+            const curr = {
+                EMAIL: response.data[0].EMAIL,
+                MANQ: response.data[0].MANQ
+            }
             if(response.status === 200){
-                dispatch(login(response.data));
-                dispatch(actSetToken(response.data.token))
+                dispatch(login(curr));
+               // dispatch(actSetToken(response.data.token))
                 toast.success("Đăng nhập thành công!");
                 // localStorage.setItem("userCurrentId",response.data.data.id)
-                // localStorage.setItem("isLogin",true)
+                localStorage.setItem("user-current-email",response.data[0].EMAIL)
+                localStorage.setItem("isLogin",true)
                 // if(response.data.data.cart){
                 //     localStorage.setItem("cart",response.data.data.cart)
                 // }else{
@@ -37,7 +42,7 @@ export const loginAsync = (data) => {
                 
                 return {
                     ok: true,
-                    currentUser: response.data
+                    currentUser: response.data[0]
                 }
             }
             else{//call api not success not run in here
@@ -94,24 +99,12 @@ export const registerAsync = (data) => {
     }
 }
 
-//log out
-// export const logout = () => ( {
-//     type: actionTypes.AUTH_LOGOUT,
-//     payload: {
-//         name: " ",
-//         image: " ",
-//         id: " "    
-//     },
-
-// })
 
 export const logout = () => ( {
     type: actionTypes.AUTH_LOGOUT,
     payload: {
-        token: Cookies.get('X-Auth-Token'),
-        type: "Bearer",
-        email: " ",
-        roles: []   
+        EMAIL: '',
+        MANQ: ''
     },
 
 })
@@ -127,18 +120,23 @@ const loginCheckLocal = (userCurrent) => ({
 
 export const loginCheckLocalAsync = () => {
     return async function(dispatch) { 
-        const decoded = jwt_decode(Cookies.get('X-Auth-Token'));    
+        //const decoded = jwt_decode(Cookies.get('X-Auth-Token'));    
         try{
-            let response = (await AuthService.findAccountByEmal(decoded.sub));
+            // let response = (await AuthService.findAccountByEmal(decoded.sub));
+            let response = (await AuthService.findAccountByEmal(localStorage.getItem('user-current-email')));
             //dispatch(loginCheckLocal())
             console.log("response : xx",response)
             console.log("response.data : xx",response.data)
             if(response.status === 200){
+                // const curr = {
+                //     token: Cookies.get('X-Auth-Token'),
+                //     type: "Bearer",
+                //     email: response.data.email,
+                //     roles: [response.data.role.name]
+                // }
                 const curr = {
-                    token: Cookies.get('X-Auth-Token'),
-                    type: "Bearer",
-                    email: response.data.email,
-                    roles: [response.data.role.name]
+                    EMAIL: response.data[0].EMAIL,
+                    MANQ: response.data[0].MANQ
                 }
                 dispatch(loginCheckLocal(curr));
                 //toast.success("Đăng nhập thành công!");
@@ -167,47 +165,3 @@ export const loginCheckLocalAsync = () => {
         }
     }
 }
-
-// const loginCheckLocal = (userCurrent) => ({
-//     type: actionTypes.AUTH_CHECK_LOGIN_RELOAD,
-//     payload: userCurrent,
-
-// })
-
-// export const loginCheckLocalAsync = (token) => {
-//     return async function(dispatch) {     
-//         try{
-//             let response = (await UserService.getSingleUser(idInLocal));
-//             console.log("respon Login : xx",response)
-//             console.log("response.data.data Login : xx",response.data.data)
-//             if(response.data.success == true || response.status === 200 || response.status === 201){
-//                 dispatch(loginCheckLocal(response.data.data));
-//                 //toast.success("Đăng nhập thành công!");
-//                 localStorage.setItem("userCurrentId",response.data.data.id)
-//                 localStorage.setItem("isLogin",true)
-//                 // localStorage.setItem("cart",JSON.stringify(response.data.data.cart))
-//                 return {
-//                     ok: true,
-//                     userCurrent: response.data.data
-//                 }
-//             }
-//             else{//call api not success not run in here
-//                 console.log("response.eror: xx", response.error);
-//                 // toast.success(response.error);
-//             } 
-//         }catch(error){
-//             console.log("error.response: xx", error.response);
-//             // const errorList = Object.values(error.response.data.message);
-//             // if(errorList.length > 0){
-//             //     errorList.map((item) => {
-//             //         toast.error(item);
-//             //     })
-//             // }
-//             toast.error("Oh có chút vấn đề! Bạn vui lòng đăng nhập lại nhé");
-//            // console.log("status aciton ", error.response.status); //404..
-//             return{
-//                 ok: false
-//             }
-//         }
-//     }
-// }

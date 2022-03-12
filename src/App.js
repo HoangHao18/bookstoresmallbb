@@ -44,10 +44,13 @@ function App() {
   const userCurrent = useSelector(state => state.auth.currentUser); 
   let dispatch = useDispatch();
   useEffect(()=>{   
-      if(Cookies.get('X-Auth-Token')){
-          const decoded = jwt_decode(Cookies.get('X-Auth-Token'));
-          dispatch(loginCheckLocalAsync())
-          //dispatch(loginCheckLocalAsync(localStorage.getItem("userCurrentId")))
+      // if(Cookies.get('X-Auth-Token')){
+      //     const decoded = jwt_decode(Cookies.get('X-Auth-Token'));
+      //     dispatch(loginCheckLocalAsync())
+      //     //dispatch(loginCheckLocalAsync(localStorage.getItem("userCurrentId")))
+      // }
+      if(localStorage.getItem('user-current-email')){
+        dispatch(loginCheckLocalAsync())
       }
   },[])
 
@@ -60,7 +63,7 @@ function App() {
         <Switch>
             {
               userCurrent ?
-              (userCurrent.roles[0] == "Admin" || userCurrent.roles[0] == "Saler") && isLogin == true ?
+              (userCurrent.MANQ == "q1" || userCurrent.MANQ == "q2") && isLogin == true ?
               <Route path="/admin" component={AdminHome}/> : ''
               : ''
             }

@@ -40,34 +40,34 @@ export default function Login(){
         if(!formData.email || !formData.password){
             return
         }
-        toast.error("Sorry can't connect to database!")
-        // dispatch(loginAsync(formData))
-        // .then(res => {
-        //     //console.log("ok: ",res.ok )
-        //     if (res.ok) {
-        //       // Thành công
-        //         setFormData({
-        //             email: '',
-        //             password: ''
-        //         })
-        //         console.log("res.currentUser.roles: ", res)
-        //         // localStorage.setItem("userCurrent", JSON.stringify(res.userCurrent));
-        //         // localStorage.setItem("isLogin", true);
-        //         setAccessToken("X-Auth-Token", res.currentUser.token)
-        //         var decoded = jwt_decode(res.currentUser.token);
-        //         console.log(decoded);
-        //         if(res.currentUser.roles[0] === "Admin" || res.currentUser.roles[0] === "Saler"){
-        //             history.push('/admin');
-        //         }else if(res.currentUser.roles[0] === "Customer"){
-        //             history.push('/');
-        //         }
+        //toast.error("Sorry can't connect to database!")
+        dispatch(loginAsync(formData))
+        .then(res => {
+            //console.log("ok: ",res.ok )
+            if (res.ok) {
+              // Thành công
+                setFormData({
+                    email: '',
+                    password: ''
+                })
+                console.log("res.currentUser.roles: ", res)
+                // localStorage.setItem("userCurrent", JSON.stringify(res.userCurrent));
+                // localStorage.setItem("isLogin", true);
+                //setAccessToken("X-Auth-Token", res.currentUser.token)
+                // var decoded = jwt_decode(res.currentUser.token);
+                // console.log(decoded);
+                if(res.currentUser.MANQ == "q1" || res.currentUser.MANQ === "q2"){
+                    history.push('/admin');
+                }else if(res.currentUser.MANQ == "q3"){
+                    history.push('/');
+                }
                 
                 
-        //     } else {
-        //       // Thất bại
-        //       //console.log("status",status)
-        //     }
-        // });
+            } else {
+              // Thất bại
+              //console.log("status",status)
+            }
+        });
         
     }
 

@@ -13,12 +13,12 @@ import listProductEx from '../../../assets/json/list-product-hot.json';
 
 export default function Home(){
     let dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getListProductsBAsync());
-        //dispatch(getListCategoriesAsync())
-    },[]);
-    const productListB = useSelector((state) => state.products.productListB);
-    const isLoading = useSelector((state) => state.products.isLoading);
+    // useEffect(() => {
+    //     dispatch(getListProductsBAsync());
+    //     //dispatch(getListCategoriesAsync())
+    // },[]);
+    //const productListB = useSelector((state) => state.products.productListB);
+    //const isLoading = useSelector((state) => state.products.isLoading);
 
     return(
         <div className="home-page-container">
@@ -46,8 +46,8 @@ export default function Home(){
             <HomePragrances/>
 
             <BreakSpace h="30px" />
-            <TitleSection title="Sản phẩm mới"/>
-            <ProductNewList/>
+            {/* <TitleSection title="Sản phẩm mới"/> */}
+            {/* <ProductNewList/> */}
             <BreakSpace h="30px" />
 
         </div>
